@@ -40,7 +40,11 @@ router.use('/', (req, res) => {
                 <button onclick={deleteTodo(event,${todo.id})} class="btn btn-danger">Delete</button>
             </li>
             `
-        })
+        });
+        const responseObj = {
+            filterTodosLength: filterTodos.length,
+            todoContent: todoContent,
+        };
         // res.send(data.replace("{{task}}", filterTodos.length))
         res.send(data.replace("{{todoContent}}", todoContent));
     })

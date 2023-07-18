@@ -145,4 +145,30 @@ router.patch('/:id', (req, res) => {
     }
 })
 
+router.delete('/', (req, res) => {
+
+    fs.readFile(path.join(__dirname, "todos.json"), 'utf-8', (err, data) => {
+        if (err) {
+            return res.status(500).json({
+                message: "Lấy todo thất bại!"
+            })
+        }
+
+        let newData = []
+
+        fs.writeFile(path.join(__dirname, "todos.json"), JSON.stringify(newData), (err) => {
+            if (err) {
+                return res.status(500).json({
+                    message: "Lưu file thất bại!"
+                })
+            }
+            return res.status(200).json({
+                message: "Xóa todo thành công!"
+            })
+        })
+    })
+
+})
+
+
 module.exports = router;
