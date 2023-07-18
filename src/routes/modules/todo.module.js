@@ -3,6 +3,7 @@ const router = express.Router();
 import fs from 'fs';
 import path from 'path';
 import multiparty from 'multiparty';
+import { checkDuplicateTodo } from './todo.middleware';
 
 router.get('/', (req, res) => {
     fs.readFile(path.join(__dirname, "todos.json"), 'utf-8', (err, data) => {
@@ -10,6 +11,16 @@ router.get('/', (req, res) => {
             return res.status(500).json({
                 message: "Lay todos that bai!"
             })
+        }
+        if (req.query.id) {
+            let todo = JSON.parse(data).find(todo => todo.id == req.query.id);
+            if (todo) {
+                return res.status(200).json(
+                    {
+                        data: todo
+                    }
+                )
+            }
         }
         return res.status(200).json({
             message: "Lay todos thanh cong",
@@ -22,11 +33,12 @@ router.post('/', (req, res) => {
     //import multiparty from 'multiparty';
     let form = new multiparty.Form();
 
-    form.parse(req, (err, fields, files) => {
+    form.parse(req, (err, fields) => {
         if (err) {
+            console.log(err);
             return res.status(500).send("Lỗi đọc form!")
         }
-        console.log("fields", fields)
+        // console.log("fields", fields)
 
         let newTodo = {
             id: Date.now(),
@@ -88,7 +100,7 @@ router.delete('/:id', (req, res) => {
     } else {
         return res.status(500).json(
             {
-                message: "Vui lòng truyền meoId!"
+                message: "Vui lòng truyền id!"
             }
         )
     }
