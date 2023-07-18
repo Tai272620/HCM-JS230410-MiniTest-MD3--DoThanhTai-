@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import axios from 'axios';
 
-router.use('/todos', (req, res) => {
+router.use('/', (req, res) => {
     fs.readFile(path.join(__dirname, "templates/todos.html"), 'utf-8', async (err, data) => {
         if (err) {
             return res.send("Load ui error")
@@ -22,6 +22,9 @@ router.use('/todos', (req, res) => {
 
         // console.log(todos)
 
+        const filterTodos = todos.filter(todo => todo.completed == false)
+        console.log(filterTodos.length)
+
         todos.map((todo, index) => {
             const todoTitle = todo.completed
                 ? `<del>${todo.title}</del>` // Nếu todo đã hoàn thành (completed là true) thì gạch ngang tiêu đề.
@@ -38,6 +41,7 @@ router.use('/todos', (req, res) => {
             </li>
             `
         })
+        // res.send(data.replace("{{task}}", filterTodos.length))
         res.send(data.replace("{{todoContent}}", todoContent));
     })
 })
