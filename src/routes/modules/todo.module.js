@@ -95,6 +95,7 @@ router.delete('/:id', (req, res) => {
 })
 
 router.patch('/:id', (req, res) => {
+    // console.log(req.body)
     if (req.params.id) {
         let flag = false;
         fs.readFile(path.join(__dirname, "todos.json"), 'utf-8', (err, data) => {

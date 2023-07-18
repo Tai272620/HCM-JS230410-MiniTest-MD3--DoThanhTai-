@@ -29,8 +29,10 @@ router.use('/todos', (req, res) => {
             todoContent += `
             <li class="list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
                 <div class="d-flex align-items-center">
-                    <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." onchange="handleChange(event,${todo.id})"/>
-                    ${todoTitle}
+                    ${todo.completed
+                    ? `<input class="form-check-input me-2" type="checkbox" value="" checked="false" onChange={handleChange(event,${todo.id})} aria-label="..." />`
+                    : `<input class="form-check-input me-2" type="checkbox" value=""  onChange={handleChange(event,${todo.id})} aria-label="..." />`}
+                           ${!todo.completed ? `<span>${todo.title} </span>` : `<span style="text-decoration: line-through">${todo.title} </span>`}
                 </div>
                 <button onclick={deleteTodo(event,${todo.id})} class="btn btn-danger">Delete</button>
             </li>

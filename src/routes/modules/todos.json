@@ -1,5 +1,1 @@
-[
-  { "id": 1689653412627, "title": "clean house", "completed": false },
-  { "id": 1689653385585, "title": "study", "completed": false },
-  { "id": 1689653370496, "title": "go to work", "completed": false }
-]
+[{"id":1689653412627,"title":"clean house","completed":true},{"id":1689653385585,"title":"study","completed":false},{"id":1689653370496,"title":"go to work","completed":false}]

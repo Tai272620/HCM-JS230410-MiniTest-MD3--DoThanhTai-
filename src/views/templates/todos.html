@@ -75,10 +75,24 @@
             fetch('http://localhost:8000/api/v1/todos/' + id, {
                 method: 'PATCH',
                 body: JSON.stringify({
-                    completed: !event.target.checked
-                })
+                    completed: event.target.checked
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
             })
+                .then((response) => {
+                    response.json()
+                    if (response.status == 200) {
+                        if (event.target.checked) {
+                            event.target.parentElement.style.textDecoration = "line-through"
+                        } else {
+                            event.target.parentElement.style.textDecoration = ""
+                        }
+                    }
+                })
         }
+
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
